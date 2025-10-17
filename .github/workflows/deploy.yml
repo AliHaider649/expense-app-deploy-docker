@@ -70,5 +70,5 @@ jobs:
             mkdir -p ~/deploy
             cd ~/deploy
             docker --version || (echo "docker not found" && exit 1)
-            docker compose pull || true
-            docker compose up -d --remove-orphans
+            docker-compose pull || true
+            docker-compose up -d --remove-orphans
