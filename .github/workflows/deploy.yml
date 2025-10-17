@@ -41,7 +41,7 @@ jobs:
           echo "FRONTEND_IMAGE=$IMAGE_FRONTEND" >> $GITHUB_ENV
       - name: Prepare production files
         run: |
-          cp docker-compose.production.yml docker-compose.yml ,
+          cp docker-compose.production.yml docker-compose.yml 
           echo "DOCKERHUB_USERNAME=${{ secrets.DOCKERHUB_USERNAME }}" > .env
           echo "BACKEND_IMAGE=expense-tracker-backend" >> .env
           echo "FRONTEND_IMAGE=expense-tracker-frontend" >> .env
