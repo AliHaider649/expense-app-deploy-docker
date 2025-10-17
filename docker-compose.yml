@@ -1,0 +1,40 @@
+
+version: "3.8"
+services:
+  db:
+    image: mysql:8.0
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: expensetracker
+      MYSQL_USER: et_user
+      MYSQL_PASSWORD: et_pass
+    ports:
+      - "3306:3306"
+    volumes:
+      - db-data:/var/lib/mysql
+
+  backend:
+    build: ./app-backend
+    restart: unless-stopped
+    environment:
+      DB_HOST: db
+      DB_USER: et_user
+      DB_PASSWORD: et_pass
+      DB_NAME: expensetracker
+      JWT_SECRET: supersecretkey
+    ports:
+      - "5000:5000"
+    depends_on:
+      - db
+
+  frontend:
+    build: ./app-frontend
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+
+volumes:
+  db-data:
