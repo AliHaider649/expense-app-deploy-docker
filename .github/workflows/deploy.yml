@@ -42,14 +42,14 @@ jobs:
       - name: Prepare production files
         run: |
           cp docker-compose.production.yml docker-compose.yml
-          echo "DOCKERHUB_USERNAME=${{ secrets.DOCKERHUB_USERNAME }}" > prod.env
-          echo "BACKEND_IMAGE=expense-tracker-backend" >> prod.env
-          echo "FRONTEND_IMAGE=expense-tracker-frontend" >> prod.env
-          echo "MYSQL_ROOT_PASSWORD=rootpassword" >> prod.env
-          echo "MYSQL_DATABASE=expensetracker" >> prod.env
-          echo "MYSQL_USER=et_user" >> prod.env
-          echo "MYSQL_PASSWORD=et_pass" >> prod.env
-          echo "JWT_SECRET=supersecretkey" >> prod.env
+          echo "DOCKERHUB_USERNAME=${{ secrets.DOCKERHUB_USERNAME }}" > .env
+          echo "BACKEND_IMAGE=expense-tracker-backend" >> .env
+          echo "FRONTEND_IMAGE=expense-tracker-frontend" >> .env
+          echo "MYSQL_ROOT_PASSWORD=rootpassword" >> .env
+          echo "MYSQL_DATABASE=expensetracker" >> .env
+          echo "MYSQL_USER=et_user" >> .env
+          echo "MYSQL_PASSWORD=et_pass" >> .env
+          echo "JWT_SECRET=supersecretkey" >> .env
       - name: Copy to EC2
         uses: appleboy/scp-action@v0.1.5
         with:
