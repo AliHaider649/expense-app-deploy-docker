@@ -41,7 +41,7 @@ jobs:
           echo "FRONTEND_IMAGE=$IMAGE_FRONTEND" >> $GITHUB_ENV
       - name: Prepare production files
         run: |
-          cp docker-compose.production.yml docker-compose.prod.yml
+          cp docker-compose.production.yml docker-compose.yml
           echo "DOCKERHUB_USERNAME=${{ secrets.DOCKERHUB_USERNAME }}" > prod.env
           echo "BACKEND_IMAGE=expense-tracker-backend" >> prod.env
           echo "FRONTEND_IMAGE=expense-tracker-frontend" >> prod.env
@@ -57,7 +57,7 @@ jobs:
           username: ${{ secrets.EC2_USER }}
           key: ${{ secrets.EC2_SSH_KEY }}
           port: 22
-          source: "docker-compose.prod.yml,prod.env"
+          source: "docker-compose.yml,prod.env"
           target: "~/deploy/"
       - name: Run docker-compose on EC2
         uses: appleboy/ssh-action@v0.1.9
@@ -70,5 +70,5 @@ jobs:
             mkdir -p ~/deploy
             cd ~/deploy
             docker --version || (echo "docker not found" && exit 1)
-            docker compose pull || true
-            docker compose up -d --remove-orphans
+            docker-compose pull || true
+            docker-compose up -d --remove-orphans
